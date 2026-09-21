@@ -153,6 +153,7 @@ macOS LaunchAgent and systemd equivalents work the same way: run `watch`, keep `
 ## Development
 
 ```bash
+python3 -m venv .venv && .venv/bin/pip install -e ".[dev]"   # dev extras: pytest + ruff
 make test    # pytest, no network
 make lint    # ruff check + format check
 make demo    # live run against a public store
