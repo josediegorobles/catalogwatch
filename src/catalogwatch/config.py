@@ -10,7 +10,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, Mapping
 
-USER_AGENT = "catalogwatch/1.0 (+https://catalogwatch.dev)"
+USER_AGENT = "catalogwatch/1.0 (+https://github.com/josediegorobles/catalogwatch)"
 
 
 @dataclass(frozen=True)

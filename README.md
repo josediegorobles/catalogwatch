@@ -9,6 +9,9 @@ endpoint the store already publishes, so nothing breaks when the store changes i
 
 Measured on a real store: **250 products / 2,525 variant rows in 1.0 s**, 500 products in 2.1 s.
 
+Source: <https://github.com/josediegorobles/catalogwatch>. Commercial licence: 39 EUR (see
+[Licence and price](#licence-and-price)).
+
 ```bash
 catalogwatch fetch --store https://competitor.com --out catalog.csv
 catalogwatch watch --store https://competitor.com --out changes.csv --telegram
@@ -118,7 +121,7 @@ macOS LaunchAgent and systemd equivalents work the same way: run `watch`, keep `
 
 | Variable | Default | Meaning |
 | --- | --- | --- |
-| `CATALOGWATCH_USER_AGENT` | `catalogwatch/1.0 (+https://catalogwatch.dev)` | Sent on every request |
+| `CATALOGWATCH_USER_AGENT` | `catalogwatch/1.0 (+https://github.com/josediegorobles/catalogwatch)` | Sent on every request |
 | `CATALOGWATCH_REQUEST_TIMEOUT` | `20` | Seconds per request |
 | `CATALOGWATCH_MAX_RETRIES` | `3` | Retries on 429/5xx and network errors, with exponential backoff |
 | `CATALOGWATCH_RETRY_BASE_DELAY` | `1.0` | Backoff base in seconds (`Retry-After` wins when present) |
@@ -163,6 +166,13 @@ The suite is 41 offline tests with fixtures frozen from real store payloads. Liv
 (2026-09-21): `allbirds.com` 250 products / 2,525 rows in 1.0 s, `gymshark.com` 500 products /
 3,310 rows in 2.1 s, and a real `price_changed` row detected after a snapshot edit.
 
-## Licence
+## Licence and price
 
-Commercial licence, one business, unlimited stores and runs. See `LICENSE.txt`.
+Free for personal, evaluation, educational and non-commercial use — no licence needed to read it,
+run it or modify it for yourself.
+
+**Commercial use costs 39 EUR (VAT included for EU buyers):** use by a business, or use in the
+delivery of paid services to a client. One business, unlimited stores, unlimited runs, perpetual.
+
+Buy a licence: <https://buy.stripe.com/8x200lfkEbyffbd3SifrW09> — the download is delivered right
+after payment. Full terms in `LICENSE.txt`.
