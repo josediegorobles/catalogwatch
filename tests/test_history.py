@@ -24,7 +24,12 @@ def row(handle: str, sku: str, price: str, available: str = "true", title: str =
 
 def test_first_snapshot_is_recorded_as_added(tmp_path: Path):
     conn = connect(tmp_path / "history.sqlite")
-    counts = record_snapshot(conn, "https://shop.example.com", [row("a", "A1", "10.00"), row("b", "B1", "20.00")], "2026-09-21T07:00:00+00:00")
+    counts = record_snapshot(
+        conn,
+        "https://shop.example.com",
+        [row("a", "A1", "10.00"), row("b", "B1", "20.00")],
+        "2026-09-21T07:00:00+00:00",
+    )
 
     assert counts == {"added": 2, "changed": 0, "unchanged": 0, "removed": 0}
     assert [entry["change_type"] for entry in history_rows(conn, "https://shop.example.com")] == ["added", "added"]
@@ -43,7 +48,9 @@ def test_identical_snapshot_writes_no_history(tmp_path: Path):
 def test_price_and_stock_changes_are_appended(tmp_path: Path):
     conn = connect(tmp_path / "history.sqlite")
     record_snapshot(conn, "https://shop.example.com", [row("a", "A1", "10.00")], "2026-09-21T07:00:00+00:00")
-    counts = record_snapshot(conn, "https://shop.example.com", [row("a", "A1", "9.00", "false")], "2026-09-22T07:00:00+00:00")
+    counts = record_snapshot(
+        conn, "https://shop.example.com", [row("a", "A1", "9.00", "false")], "2026-09-22T07:00:00+00:00"
+    )
 
     assert counts["changed"] == 1
     entries = history_rows(conn, "https://shop.example.com")
@@ -55,7 +62,12 @@ def test_price_and_stock_changes_are_appended(tmp_path: Path):
 
 def test_removed_products_are_logged_and_forgotten(tmp_path: Path):
     conn = connect(tmp_path / "history.sqlite")
-    record_snapshot(conn, "https://shop.example.com", [row("a", "A1", "10.00"), row("b", "B1", "20.00")], "2026-09-21T07:00:00+00:00")
+    record_snapshot(
+        conn,
+        "https://shop.example.com",
+        [row("a", "A1", "10.00"), row("b", "B1", "20.00")],
+        "2026-09-21T07:00:00+00:00",
+    )
     counts = record_snapshot(conn, "https://shop.example.com", [row("a", "A1", "10.00")], "2026-09-22T07:00:00+00:00")
 
     assert counts == {"added": 0, "changed": 0, "unchanged": 1, "removed": 1}

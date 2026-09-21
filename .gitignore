@@ -16,3 +16,7 @@ build/
 
 sales/
 docs/*.cast
+history.sqlite
+*.sqlite
+reports/
+stores.txt

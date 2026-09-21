@@ -46,13 +46,14 @@ def product(price: str = "10.00", sku: str = "A1") -> dict:
 
 
 def make_fetcher(pages_by_host: dict[str, dict]) -> Fetcher:
+    lookup = {key.split("//")[-1].rstrip("/"): value for key, value in pages_by_host.items()}
+
     def route(url: str, params: dict | None = None) -> FakeResponse:
         host = url.split("/")[2]
-        if host not in pages_by_host:
+        if host not in lookup:
             return FakeResponse(403, text="Forbidden")
         page = int((params or {}).get("page", 1))
-        payload = pages_by_host[host] if page == 1 else {"products": []}
-        return FakeResponse(200, json_data=payload)
+        return FakeResponse(200, json_data=lookup[host] if page == 1 else {"products": []})
 
     return Fetcher(load_settings(env={}), client=FakeClient(route), sleep=lambda _: None, rand=lambda: 0.0)
 
@@ -60,11 +61,7 @@ def make_fetcher(pages_by_host: dict[str, dict]) -> Fetcher:
 def test_load_stores_ignores_comments_and_blanks(tmp_path: Path):
     path = tmp_path / "stores.txt"
     path.write_text(
-        "# niche: nutrition\n"
-        "https://a.example.com\n"
-        "\n"
-        "  https://b.example.com  \n"
-        "# https://commented.example.com\n",
+        "# niche: nutrition\nhttps://a.example.com\n\n  https://b.example.com  \n# https://commented.example.com\n",
         encoding="utf-8",
     )
     assert load_stores(path) == ["https://a.example.com", "https://b.example.com"]

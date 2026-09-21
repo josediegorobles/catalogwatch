@@ -9,11 +9,13 @@ from typing import Callable, Sequence
 
 from . import __version__
 from .config import Settings, load_settings
+from .fleet import load_stores, run_fleet
+from .history import connect, store_stats
 from .http import FetchError, Fetcher
 from .normalize import to_rows, write_changes_csv, write_csv
 from .sources import SOURCES, SourceError, fetch_catalog
 from .telegram import TelegramError, format_alert, send_alert
-from .watch import diff_rows, duplicate_keys, load_snapshot, save_snapshot, snapshot_path
+from .watch import diff_rows, duplicate_keys, load_snapshot, save_snapshot, slugify, snapshot_path
 
 EXIT_OK = 0
 EXIT_ERROR = 1
@@ -50,6 +52,19 @@ def build_parser() -> argparse.ArgumentParser:
     watch.add_argument("--env-file", default=None, help="path to a .env file (default: ./.env)")
 
     subparsers.add_parser("doctor", help="show environment and configuration status")
+
+    fleet = subparsers.add_parser("fleet", help="crawl many stores into one history database")
+    fleet.add_argument("--stores", required=True, help="text file with one store URL per line (# comments allowed)")
+    fleet.add_argument("--db", default="history.sqlite", help="SQLite history database (default: history.sqlite)")
+    fleet.add_argument("--reports", default="reports", help="where per-store change reports are written")
+    fleet.add_argument("--source", default="auto", help=f"one of: {', '.join(SOURCES)} (default: auto)")
+    fleet.add_argument(
+        "--max-pages", type=int, default=1, help="safety cap on paginated requests per store (default: 1)"
+    )
+    fleet.add_argument("--telegram", action="store_true", help="send a summary of the fleet's changes to Telegram")
+    fleet.add_argument("--dry-run", action="store_true", help="print the Telegram message instead of sending it")
+    fleet.add_argument("--quiet", action="store_true", help="print nothing per store")
+    fleet.add_argument("--env-file", default=None, help="path to a .env file (default: ./.env)")
     return parser
 
 
@@ -103,6 +118,44 @@ def _cmd_watch(args: argparse.Namespace, settings: Settings, fetcher: Fetcher) -
     return EXIT_OK
 
 
+def _cmd_fleet(args: argparse.Namespace, settings: Settings, fetcher: Fetcher) -> int:
+    stores = load_stores(Path(args.stores))
+    if not stores:
+        print(f"error: no stores found in {args.stores}", file=sys.stderr)
+        return EXIT_USAGE
+
+    conn = connect(Path(args.db))
+    reports = Path(args.reports)
+
+    def on_store(store: str, rows: int, changes: list[dict[str, str]], error: str | None) -> None:
+        if error is not None:
+            print(f"error  {store}: {error}", file=sys.stderr)
+            return
+        if args.quiet:
+            return
+        print(f"ok     {store}  {rows} rows  {len(changes)} change(s)")
+        if changes:
+            write_changes_csv(changes, reports / f"{slugify(store)}-changes.csv")
+
+    result = run_fleet(stores, fetcher, conn, source=args.source, max_pages=args.max_pages, on_store=on_store)
+
+    if not args.quiet:
+        print(
+            f"{result['stores_ok']} ok, {result['stores_failed']} failed, "
+            f"{result['changes']} change(s) -> {args.db} ({len(store_stats(conn))} stores tracked)"
+        )
+
+    if args.telegram and result["changes"]:
+        combined: list[dict[str, str]] = []
+        for store, payload in result["per_store"].items():
+            for change in payload["changes"]:
+                combined.append(dict(change, title=f"{slugify(store)} · {change.get('title', '')}"))
+        sent = send_alert(format_alert("fleet", combined), settings, fetcher, dry_run=args.dry_run)
+        if sent and not args.quiet:
+            print("Telegram alert sent.")
+    return EXIT_OK
+
+
 def _cmd_doctor(settings: Settings) -> int:
     import platform
 
@@ -133,6 +186,8 @@ def main(argv: Sequence[str] | None = None, fetcher_factory: Callable[[], Fetche
             return _cmd_fetch(args, fetcher)
         if args.command == "watch":
             return _cmd_watch(args, settings, fetcher)
+        if args.command == "fleet":
+            return _cmd_fleet(args, settings, fetcher)
         return _cmd_doctor(settings)
     except (SourceError, FetchError) as exc:
         print(f"error: {exc}", file=sys.stderr)
@@ -140,6 +195,9 @@ def main(argv: Sequence[str] | None = None, fetcher_factory: Callable[[], Fetche
     except TelegramError as exc:
         print(f"error: {exc}", file=sys.stderr)
         return EXIT_USAGE
+    except RuntimeError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return EXIT_ERROR
     finally:
         if fetcher_factory is None:
             fetcher.close()

@@ -55,9 +55,12 @@ def duplicate_keys(rows: Sequence[Mapping[str, Any]]) -> list[str]:
     return sorted(key for key, count in counts.items() if count > 1)
 
 
+def slugify(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", re.sub(r"^https?://", "", text.lower())).strip("-")
+
+
 def snapshot_path(state_dir: Path, store: str) -> Path:
-    slug = re.sub(r"[^a-z0-9]+", "-", re.sub(r"^https?://", "", store.lower())).strip("-")
-    return Path(state_dir) / f"{slug}.json"
+    return Path(state_dir) / f"{slugify(store)}.json"
 
 
 def load_snapshot(path: Path) -> list[dict[str, Any]]:
