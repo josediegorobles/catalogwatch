@@ -13,7 +13,7 @@ from .http import FetchError, Fetcher
 from .normalize import to_rows, write_changes_csv, write_csv
 from .sources import SOURCES, SourceError, fetch_catalog
 from .telegram import TelegramError, format_alert, send_alert
-from .watch import diff_rows, load_snapshot, save_snapshot, snapshot_path
+from .watch import diff_rows, duplicate_keys, load_snapshot, save_snapshot, snapshot_path
 
 EXIT_OK = 0
 EXIT_ERROR = 1
@@ -81,6 +81,13 @@ def _cmd_watch(args: argparse.Namespace, settings: Settings, fetcher: Fetcher) -
         expand_variations=args.expand_variations,
     )
     rows = to_rows(catalog)
+    duplicates = duplicate_keys(rows)
+    if duplicates and not args.quiet:
+        print(
+            f"warning: {len(duplicates)} catalog key(s) appear more than once and are treated as one row "
+            f"(e.g. {duplicates[0]})",
+            file=sys.stderr,
+        )
     state = snapshot_path(Path(args.state_dir), catalog.store)
     changes = diff_rows(load_snapshot(state), rows)
     write_changes_csv(changes, Path(args.out))

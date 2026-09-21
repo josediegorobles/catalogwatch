@@ -1,0 +1,10 @@
+services:
+  catalogwatch:
+    build: .
+    image: catalogwatch:1.0.0
+    env_file:
+      - .env
+    volumes:
+      - ./out:/app/out
+      - ./state:/app/state
+    working_dir: /app

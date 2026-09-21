@@ -1,0 +1,34 @@
+CatalogWatch — Commercial Licence, v1.0
+Copyright (c) 2026 Jose Robles (RoblesAI). All rights reserved.
+
+1. Grant
+   Purchase of a CatalogWatch licence grants one business (the "Licensee") a perpetual,
+   non-exclusive, non-transferable right to install and run the software on any number of
+   machines it controls, for any number of stores and runs, including on behalf of the
+   Licensee's own clients.
+
+2. Restrictions
+   The Licensee may not resell, sublicense, rent, publish or redistribute the software or
+   any derivative work as a product or as part of a product whose main value is this
+   software. The Licensee may not remove or alter this licence file or the copyright
+   notices. Source code may be read and modified for the Licensee's internal use.
+
+3. Deliverables
+   The purchase includes the source code, tests, documentation and the demo scripts in this
+   package. It does not include hosting, ongoing maintenance or a service level agreement.
+   Installation support by email is provided for 30 days from the purchase date.
+
+4. No warranty
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+   INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+   PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM,
+   DAMAGES OR OTHER LIABILITY ARISING FROM THE SOFTWARE OR ITS USE.
+
+5. Compliance
+   The Licensee is responsible for how it uses the software: the terms of service of the
+   stores it reads, applicable data protection law, and the accuracy of any price, stock or
+   product data it acts upon. Public catalog data is read at the Licensee's own risk.
+
+6. Refunds
+   Refunds follow the policy of the marketplace or payment channel through which the licence
+   was bought.

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import re
+from collections import Counter
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
@@ -46,6 +47,12 @@ def diff_rows(previous: Sequence[Mapping[str, Any]], current: Sequence[Mapping[s
 
     changes.sort(key=lambda change: (change["change_type"], change["key"]))
     return changes
+
+
+def duplicate_keys(rows: Sequence[Mapping[str, Any]]) -> list[str]:
+    """Keys that appear more than once. Diffing collapses them, so the caller should warn."""
+    counts: Counter[str] = Counter(row_key(row) for row in rows)
+    return sorted(key for key, count in counts.items() if count > 1)
 
 
 def snapshot_path(state_dir: Path, store: str) -> Path:
