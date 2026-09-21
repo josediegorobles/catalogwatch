@@ -1,0 +1,14 @@
+.git
+.venv
+__pycache__
+*.pyc
+.pytest_cache
+.ruff_cache
+.env
+state
+out
+tests
+sales
+*.zip
+*.csv
+.DS_Store

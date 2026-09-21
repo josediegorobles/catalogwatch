@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from catalogwatch.watch import diff_rows, load_snapshot, save_snapshot, snapshot_path
+from catalogwatch.watch import diff_rows, duplicate_keys, load_snapshot, save_snapshot, snapshot_path
 
 
 def row(handle: str, sku: str, price: str, available: str = "true") -> dict:
@@ -68,3 +68,14 @@ def test_snapshot_roundtrip_and_path(tmp_path: Path):
 
 def test_missing_snapshot_reads_as_empty(tmp_path: Path):
     assert load_snapshot(tmp_path / "nope.json") == []
+
+
+def test_duplicate_keys_are_reported_once_each():
+    rows = [
+        row("a", "A1", "10.00"),
+        row("a", "A1", "11.00"),
+        row("b", "B1", "20.00"),
+        row("c", "", "1.00"),
+        row("c", "", "2.00"),
+    ]
+    assert duplicate_keys(rows) == ["a::A1", "c::variant:c-"]
