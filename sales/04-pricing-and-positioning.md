@@ -43,14 +43,12 @@ ROI real medido: 250 productos / 2.525 filas en **1,0 s**; 500 productos en 2,1 
 
 ## Recomendación (una)
 
-**Vender por enlace de pago de Stripe dentro de las conversaciones que Jose ya tiene (Whop L1,
-D1/D2, red caliente), no por descubrimiento de marketplace.** Porqué: el producto ya está listo y
-lo que falta es distribución; los canales con conversación humana son los únicos que han producido
-dinero (x402, 7 pagos) y Gumroad con 0 ventas demuestra que publicar no es distribuir. Gumroad/Whop
-quedan como escaparate preparado, con la ficha escrita, sin pagar el 30 % de Discover.
+**Distribuir por superficies de entrada (buscador → ficha), no por escaparates ni por outbound: repo público, actor gratuito en Apify Store y herramienta web con captura de correo en josedrobles.com.** Porqué: el comprador del CSV llega buscando y lo que se cobra es lo que el buscador no resuelve (histórico de cambios por SKU); los canales con conversación humana (x402, 7 pagos) ya están ocupados por el ICP industrial/legal y abrir el ICP e-commerce sería un frente nuevo. El detalle, la economía de cada superficie y las condiciones de corte están en `06-distribution-plan.md`.
+
+El precio de 39 € no aparece en el outbound D1/D2/Whop: diluiría el ancla de 390 € de la Sesión A.
 
 ## Condición de revalidación
 
-Si en 30 días el enlace no produce ninguna venta con ≥20 conversaciones expuestas al producto, el
-activo pasa a lead magnet (regalo en la secuencia de captación) en lugar de producto de pago. No se
-invierte más tiempo de ingeniería en él sin una petición pagada previa.
+Corte a 30 días (detalle en `06-distribution-plan.md`): sin ≥20 correos capturados y ninguna
+licencia cobrada, el activo se congela publicado (coste 0) y no recibe más ingeniería sin una
+petición pagada previa.

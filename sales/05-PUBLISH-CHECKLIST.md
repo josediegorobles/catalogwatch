@@ -12,11 +12,17 @@
 
 1. [ ] Generar el GIF real: `asciinema rec demo.cast -c "bash scripts/demo.sh" && agg demo.cast catalogwatch.gif`.
 2. [ ] Grabar el vídeo de 50 s siguiendo `03-demo-video-script.md` (rótulos, no voz si se prefiere).
-3. 🔒 Crear producto + precio + payment link en Stripe **live** (`02-stripe-payment-link.md`, 4719
+3. [ ] Publicar el repo público con el motor de extracción + GIF + topics.
+4. [ ] Envolver el motor como actor de Apify (gratuito) y publicarlo — verificar antes si sus
+   condiciones permiten enlazar a un producto propio de pago.
+5. [ ] Worker + página en josedrobles.com: URL de tienda → CSV a cambio de correo (reparto: gratis
+   `fetch`, de pago `watch`).
+6. 🔒 Crear producto + precio + payment link en Stripe **live** (`02-stripe-payment-link.md`, 4719
    céntimos = 39 € IVA incl.). Es dinero y fiscalidad: autorización explícita.
-4. 🔒 Publicar la ficha (Whop y/o Gumroad). Si es Gumroad, **no activar Discover** (30 %).
-5. 🔒 Primer outbound con el enlace: pasa por la cola (`/skill:outbound-send`), nunca a mano.
-6. [ ] Fijar la métrica de corte a 30 días: ventas / conversaciones expuestas al producto.
+7. [ ] Fijar la métrica de corte de `06-distribution-plan.md` (día 14 y día 30).
+
+**No** se hace outbound con el enlace de 39 € hacia D1/D2/Whop: diluye el ancla de 390 € de la
+Sesión A (ver `06-distribution-plan.md` §2).
 
 ## Antes de difundir, comprobar
 
