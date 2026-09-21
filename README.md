@@ -1,5 +1,7 @@
 # CatalogWatch
 
+![tests](https://github.com/josediegorobles/catalogwatch/actions/workflows/tests.yml/badge.svg)
+
 Export any **Shopify** or **WooCommerce** catalog to CSV in one command, then get a **SKU-level
 report of what changed** (price drops, restocks, new and removed products) with an optional
 Telegram alert.
