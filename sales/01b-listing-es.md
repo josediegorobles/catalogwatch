@@ -5,7 +5,7 @@
 **Subtítulo:** Exporta cualquier catálogo Shopify o WooCommerce a CSV con un comando y recibe en
 Telegram qué SKUs han cambiado de precio o de stock. Sin navegador, sin cuotas.
 
-**Precio:** 39 € pago único (IVA incluido para compradores UE vía merchant of record).
+**Precio:** 39 € pago único (IVA incluido) — comprar: <https://buy.stripe.com/8x200lfkEbyffbd3SifrW09>
 
 ---
 

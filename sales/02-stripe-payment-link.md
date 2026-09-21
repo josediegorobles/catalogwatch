@@ -1,10 +1,15 @@
-# Enlace de pago con Stripe (preparado, NO ejecutado)
+# Enlace de pago con Stripe
 
-Nada de este documento se ha ejecutado: crear producto/precio/payment link en **live** es una
-acción irreversible con efectos fiscales y requiere autorización explícita de Jose.
+> **EJECUTADO 2026-09-21 (autorizado por Jose).** Cuenta `RoblesAI · live` (`acct_1Tigz7PRaXEe25Cg`).
+> - Producto: `prod_VIkxSGAnEQ98zH` (CatalogWatch)
+> - Precio: `price_1UI9RzPRaXEe25Cg3eXjSt6G` (4719 céntimos EUR = 39 € IVA incl.)
+> - Payment link: `plink_1UI9S0PRaXEe25Cg8ofhD9K9` → **<https://buy.stripe.com/8x200lfkEbyffbd3SifrW09>**
+> - `after_completion`: redirect a <https://github.com/josediegorobles/catalogwatch/releases/latest>
+> - Pausar en un segundo: `stripe payment_links update plink_1UI9S0PRaXEe25Cg8ofhD9K9 --live -d "active=false"`
 
-Precio propuesto: **39 € IVA incluido** → `--unit-amount 4719` (39 € + 21 % IVA = 47,19 € = 4719
-céntimos).
+Los comandos siguientes quedan como registro reproducible de lo ejecutado.
+
+Precio: **39 € IVA incluido** → `--unit-amount 4719` (39 € + 21 % IVA = 47,19 € = 4719 céntimos).
 
 ## 0. Comprobar cuenta y modo
 

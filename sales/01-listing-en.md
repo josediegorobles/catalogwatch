@@ -4,7 +4,7 @@
 
 **Subtitle / short description (≤140 chars):** Export any Shopify or WooCommerce catalog to CSV in one command. Get SKU-level price and stock changes on Telegram. No browser, no fees.
 
-**Price:** €39 one-time (IVA included for EU buyers through the merchant of record).
+**Price:** €39 one-time (VAT included for EU buyers) — buy: <https://buy.stripe.com/8x200lfkEbyffbd3SifrW09>
 
 ---
 

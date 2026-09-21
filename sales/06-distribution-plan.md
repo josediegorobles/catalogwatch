@@ -34,22 +34,21 @@ El precio de 39 € **no entra nunca** en el outbound D1/D2/Whop: diluye el ancl
 A por 39 €. Si algún día aparece un prospecto e-commerce en esa motion, el informe se **regala**
 dentro de la Sesión A; la licencia se vende solo a quien pregunta "¿me lo puedo quedar?".
 
-## 3. Las tres superficies de entrada (cero outbound, cuentas ya existentes)
+## 3. Las superficies de entrada (cero outbound, cuentas ya existentes)
 
-### A. Ficha en Apify Store (funnel, no facturación)
-- **Por qué:** las fichas de Apify Store rankean en Google para búsquedas de scraper (`blog.apify.com/building-98-actors-on-apify-store`, 2026) y hay 70.000+ actores, así que es una superficie de descubrimiento real, no un escaparate muerto.
-- **Cómo:** actor gratuito "Shopify & WooCommerce catalog → CSV" (imagen Docker con el código actual) cuyo README enlaza a la licencia autohospedada para el *watch*.
-- **Economía:** Apify paga el 80 % y, desde oct-2026, **solo pay-per-event** (`docs.apify.com/academy/.../how-actor-monetization-works`; `blog.apify.com/standardizing-actor-pricing`). Por eso **no** se monetiza ahí: un pago único de 39 € no cabe en su modelo. Es escaparate.
-- **Verificar antes de publicar:** si las condiciones de publicación (`docs.apify.com/legal/store-publishing-terms-and-conditions`) permiten enlazar a un producto propio de pago. **No verificado.**
+### A. ~~Ficha en Apify Store~~ → **prohibido por sus condiciones** (sustituido por el repo)
+- **Hallazgo (2026-09-21):** las condiciones de publicación de Apify Store prohíben *"directly or indirectly offer, link to, or promote any product or service outside of the Platform in your Actors or in any other content you publish on Apify Store, including in the Actor's readme, description, issues, or reviews"* (`docs.apify.com/legal/store-publishing-terms-and-conditions`, §2.2.4.2(i), actualizado 15-sep-2026).
+- Consecuencia: el actor gratuito como embudo hacia la licencia de 39 € **no se puede hacer**. Publicar un actor *de pago* exigiría pay-per-event obligatorio desde oct-2026 (`blog.apify.com/standardizing-actor-pricing`), es decir, vender el CSV a céntimos por ejecución: otro negocio, y con 70.000+ actores de competencia. **Descartado.**
+- **Superficie que lo sustituye: el repo público de GitHub** (indexado, enlaza a donde quiera, y es donde busca el comprador técnico).
 
-### B. Herramienta web gratis en josedrobles.com (captura de correo con trabajo real)
-- **Por qué:** el carril web/captación ya está activo y **capturó 0 correos con 4 lead magnets** (9–29 visitas reales/semana, `current-focus.md` 2026-09-21). El problema no era el tráfico: era que los magnets no hacían nada. Pegar la URL de una tienda y recibir el CSV **hace algo**.
-- **Cómo:** Worker en Cloudflare (stack ya montado: Workers + D1 + Resend) que llama al mismo motor; correo obligatorio para recibir el CSV, con la licencia de 39 € y el servicio de 29 €/mes como siguiente paso.
-- **Reparto freemium correcto:** gratis = `fetch` (la parte comoditizada, que ya está regalada en blogs de 2026); de pago = `watch` + histórico + Telegram (la cuña).
+### B. Herramienta web gratis en josedrobles.com (captura de correo con trabajo real) — **no hecha, a propósito**
+- **Por qué se propuso:** el carril web/captación ya está activo y **capturó 0 correos con 4 lead magnets** (9–29 visitas reales/semana, `current-focus.md` 2026-09-21). El problema no era el tráfico: era que los magnets no hacían nada.
+- **Por qué no se hizo:** el tráfico de esa web es de pymes industriales, no de e-commerce (el ICP vivo de D1/D2 son directores de planta y despachos legales), así que un magnet de catálogos competidores desalinea el posicionamiento del sitio, y 9–29 visitas/semana no arreglan ninguna métrica. Se retoma solo si el repo genera tráfico real que convenga capturar.
 
-### C. Repo público en GitHub (superficie de desarrollador)
-- **Por qué:** el comprador de la licencia es técnico y busca en GitHub antes que en Gumroad.
-- **Cómo:** repo con README + GIF de 50 s + topics, y el modo `watch` como parte de pago. Contraindicación asumida: el fork es gratis; por eso el repo lleva solo el motor de extracción y la licencia cubre el histórico, el soporte y el uso comercial.
+### C. Repo público en GitHub (superficie de desarrollador) — **publicado 2026-09-21**
+- **Por qué:** el comprador de la licencia es técnico y busca en GitHub antes que en Gumroad; además las páginas de GitHub se indexan y no hay plataforma que cobre comisión.
+- **Cómo:** repo público <https://github.com/josediegorobles/catalogwatch> con README + GIF de 50 s + topics, licencia comercial (gratis para uso no comercial, 39 € para uso comercial) y el enlace de pago en el README. Release `v1.0.0` con el ZIP como asset, que es el destino del `after_completion` de Stripe.
+- Contraindicación asumida: el código es copiable. El precio no protege el código, protege el uso comercial y el soporte de instalación; con este volumen esperado es el trato correcto.
 
 ## 4. Lo que NO se hace en 30 días (con la razón)
 
@@ -74,12 +73,13 @@ dentro de la Sesión A; la licencia se vende solo a quien pregunta "¿me lo pued
 **Ningún euro de gasto:** las tres superficies usan cuentas y stack existentes (Apify, Cloudflare,
 Stripe). No se compra tráfico ni se paga listado.
 
-## 6. Acción del día 0
+## 6. Acción del día 0 — **ejecutada 2026-09-21**
 
-1. Publicar el repo público con el motor de extracción y el GIF (`scripts/demo.sh` ya lo produce).
-2. Envolver el motor como actor de Apify (imagen Docker) y publicarlo gratis, tras verificar la
-   condición de enlaces externos.
-3. Worker + página en josedrobles.com con captura de correo.
+1. [x] Repo público con el código, README, licencia comercial y GIF pendiente (`scripts/demo.sh` ya produce la secuencia para grabarlo).
+2. [x] Producto + precio + payment link en Stripe live (39 € IVA incl.) con `after_completion` a la release.
+3. [x] Release `v1.0.0` con el ZIP como asset (es lo que recibe el comprador al pagar).
+4. [ ] GIF y vídeo de 50 s (requiere grabar pantalla; `agg`/asciinema no están instalados).
+5. [ ] Actor de Apify: descartado por sus condiciones (§2.2.4.2(i)).
+6. [ ] Herramienta web con captura de correo: aplazada a propósito (desalinea el posicionamiento y no hay tráfico que capturar).
 
-Coste estimado: ≤1 día por superficie. Ninguna de las tres requiere una conversación ni una cuenta
-nueva, y las tres se pueden medir sin pedirle nada a nadie.
+Lo ejecutado se midió sin pedirle nada a nadie: repo, enlace de pago y release no requieren conversación ni gasto.
