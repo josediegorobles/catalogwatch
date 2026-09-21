@@ -119,6 +119,10 @@ def _cmd_watch(args: argparse.Namespace, settings: Settings, fetcher: Fetcher) -
 
 
 def _cmd_fleet(args: argparse.Namespace, settings: Settings, fetcher: Fetcher) -> int:
+    if not Path(args.stores).is_file():
+        print(f"error: stores file not found: {args.stores}", file=sys.stderr)
+        return EXIT_USAGE
+
     stores = load_stores(Path(args.stores))
     if not stores:
         print(f"error: no stores found in {args.stores}", file=sys.stderr)

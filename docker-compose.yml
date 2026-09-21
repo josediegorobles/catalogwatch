@@ -1,12 +1,12 @@
 services:
   catalogwatch:
     build: .
-    image: catalogwatch:1.0.0
+    image: catalogwatch:1.1.0
     # Optional: without a .env file the built-in defaults apply.
     env_file:
       - path: .env
         required: false
     volumes:
-      - ./out:/app/out
-      - ./state:/app/state
+      # The whole folder is mounted so stores.txt, history.sqlite and reports/ are the ones on disk.
+      - ./:/app
     working_dir: /app

@@ -98,6 +98,34 @@ def test_watch_telegram_dry_run_prints_and_does_not_send(tmp_path: Path, shopify
     assert "dry run" in capsys.readouterr().out.lower()
 
 
+def test_fleet_rejects_a_missing_stores_file(tmp_path: Path):
+    code = main(["fleet", "--stores", str(tmp_path / "nope.txt"), "--db", str(tmp_path / "h.sqlite")])
+    assert code == 2
+
+
+def test_fleet_writes_history_and_reports(tmp_path: Path, shopify_page1, shopify_page2, capsys):
+    stores = tmp_path / "stores.txt"
+    stores.write_text(f"# niche\n{STORE}\n", encoding="utf-8")
+    db = tmp_path / "history.sqlite"
+    reports = tmp_path / "reports"
+
+    def factory():
+        return shopify_fetcher({1: shopify_page1, 2: shopify_page2})
+
+    assert (
+        main(["fleet", "--stores", str(stores), "--db", str(db), "--reports", str(reports)], fetcher_factory=factory)
+        == 0
+    )
+    assert "3 change(s)" in capsys.readouterr().out
+    assert list(reports.glob("*-changes.csv"))
+
+    assert (
+        main(["fleet", "--stores", str(stores), "--db", str(db), "--reports", str(reports)], fetcher_factory=factory)
+        == 0
+    )
+    assert "0 change(s)" in capsys.readouterr().out
+
+
 def test_unknown_source_is_rejected(tmp_path: Path):
     code = main(
         ["fetch", "--store", STORE, "--out", str(tmp_path / "c.csv"), "--source", "myspace"],

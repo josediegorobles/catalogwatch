@@ -74,6 +74,19 @@ docker compose run --rm catalogwatch watch --store https://competitor.com --out 
 | `--notify-empty` | off | Also notify when nothing changed |
 | `--quiet` | off | Print nothing on success |
 
+### `catalogwatch fleet` — many stores into one history database
+
+| Flag | Default | Meaning |
+| --- | --- | --- |
+| `--stores` | required | Text file, one store URL per line (`#` comments allowed) |
+| `--db` | `history.sqlite` | SQLite database with the full price/stock history |
+| `--reports` | `reports` | Where per-store change reports are written |
+| `--max-pages` | `1` | Pages per store (1 = newest 250 products) |
+| `--telegram` / `--dry-run` | off | Send (or print) one summary of the fleet's changes |
+| `--quiet` | off | Print nothing per store |
+
+A store that fails (403, timeout, unknown platform) is reported and skipped; the run continues.
+
 ### `catalogwatch doctor`
 
 Prints Python/httpx versions and whether Telegram is configured.
@@ -97,6 +110,24 @@ Rows are keyed by `handle::sku` (falling back to `handle::variant:<id>`), so a d
 renames of product titles and price-only edits.
 
 ---
+
+## History database
+
+`fleet` writes every observed change to SQLite instead of keeping raw snapshots: a 250-product feed is
+~1.5 MB, and 300 stores a day would be ~450 MB of files nobody reads. Two tables:
+
+- `products` — current state of every SKU (one row per store + handle + SKU).
+- `price_history` — one row per observed change (`added`, `price_changed`, `stock_changed`, `removed`).
+
+Measured on two real stores: 4,208 SKUs and 4,211 history rows in **3.5 MB**, and a second pass wrote
+zero rows (idempotent). A year of daily runs over 300 stores projects to about 1 GB in one portable
+file. Reports are SQL queries against it, for example every SKU that dropped price in the last 30 days:
+
+```sql
+SELECT store, sku, price, observed_at FROM price_history
+WHERE change_type = 'price_changed' AND observed_at >= date('now', '-30 days')
+ORDER BY observed_at DESC;
+```
 
 ## Scheduling it
 
@@ -166,7 +197,7 @@ make lint    # ruff check + format check
 make demo    # live run against a public store
 ```
 
-The suite is 41 offline tests with fixtures frozen from real store payloads. Live verification
+The suite is 53 offline tests with fixtures frozen from real store payloads. Live verification
 (2026-09-21): `allbirds.com` 250 products / 2,525 rows in 1.0 s, `gymshark.com` 500 products /
 3,310 rows in 2.1 s, and a real `price_changed` row detected after a snapshot edit.
 
