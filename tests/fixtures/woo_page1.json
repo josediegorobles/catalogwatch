@@ -1,0 +1,50 @@
+[
+  {
+    "id": 101,
+    "name": "Ceramic Mug 350ml",
+    "slug": "ceramic-mug-350ml",
+    "permalink": "https://woo.example-shop.com/product/ceramic-mug-350ml/",
+    "sku": "MUG-350-WHT",
+    "price": "19.99",
+    "regular_price": "24.99",
+    "sale_price": "19.99",
+    "on_sale": true,
+    "prices": {
+      "price": "1999",
+      "regular_price": "2499",
+      "sale_price": "1999",
+      "currency_code": "EUR",
+      "currency_minor_unit": 2
+    },
+    "is_in_stock": true,
+    "type": "simple",
+    "variations": [],
+    "images": [{ "id": 7, "src": "https://woo.example-shop.com/img/mug.jpg" }],
+    "categories": [{ "id": 2, "name": "Kitchen" }],
+    "tags": [{ "id": 5, "name": "new" }]
+  },
+  {
+    "id": 102,
+    "name": "Linen Apron",
+    "slug": "linen-apron",
+    "permalink": "https://woo.example-shop.com/product/linen-apron/",
+    "sku": "",
+    "price": "39.00",
+    "regular_price": "39.00",
+    "sale_price": "",
+    "on_sale": false,
+    "prices": {
+      "price": "3900",
+      "regular_price": "3900",
+      "sale_price": "0",
+      "currency_code": "EUR",
+      "currency_minor_unit": 2
+    },
+    "is_in_stock": false,
+    "type": "simple",
+    "variations": [],
+    "images": [],
+    "categories": [],
+    "tags": []
+  }
+]

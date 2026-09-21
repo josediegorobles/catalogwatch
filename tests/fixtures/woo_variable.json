@@ -1,0 +1,54 @@
+{
+  "id": 205,
+  "name": "Organic Cotton Tee",
+  "slug": "organic-cotton-tee",
+  "permalink": "https://woo.example-shop.com/product/organic-cotton-tee/",
+  "sku": "TEE-PARENT",
+  "price": "22.00",
+  "regular_price": "29.00",
+  "sale_price": "22.00",
+  "on_sale": true,
+  "prices": {
+    "price": "2200",
+    "regular_price": "2900",
+    "sale_price": "2200",
+    "currency_code": "EUR",
+    "currency_minor_unit": 2
+  },
+  "is_in_stock": true,
+  "type": "variable",
+  "images": [{ "id": 11, "src": "https://woo.example-shop.com/img/tee.jpg" }],
+  "categories": [{ "id": 3, "name": "Apparel" }],
+  "tags": [],
+  "variations": [
+    {
+      "id": 206,
+      "sku": "TEE-S-BLK",
+      "attributes": [
+        { "name": "Size", "value": "S" },
+        { "name": "Color", "value": "Black" }
+      ],
+      "prices": {
+        "price": "2200",
+        "regular_price": "2900",
+        "sale_price": "2200",
+        "currency_code": "EUR",
+        "currency_minor_unit": 2
+      },
+      "is_in_stock": true
+    },
+    {
+      "id": 207,
+      "sku": "TEE-M-BLK",
+      "attributes": [{ "name": "Size", "value": "M" }],
+      "prices": {
+        "price": "2500",
+        "regular_price": "2900",
+        "sale_price": "2500",
+        "currency_code": "EUR",
+        "currency_minor_unit": 2
+      },
+      "is_in_stock": false
+    }
+  ]
+}

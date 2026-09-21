@@ -1,0 +1,107 @@
+{
+  "products": [
+    {
+      "id": 7369944137808,
+      "title": "Trail Runner 2",
+      "handle": "trail-runner-2",
+      "body_html": "<p>Lightweight trail shoe.</p>",
+      "published_at": "2026-01-12T11:33:11-08:00",
+      "created_at": "2025-11-05T07:14:57-08:00",
+      "updated_at": "2026-09-18T09:02:00-07:00",
+      "vendor": "Northbound",
+      "product_type": "Shoes",
+      "tags": ["trail", "running"],
+      "variants": [
+        {
+          "id": 41000000000001,
+          "title": "42 / Black",
+          "option1": "42",
+          "option2": "Black",
+          "option3": null,
+          "sku": "NB-TR2-42-BLK",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": null,
+          "available": true,
+          "price": "129.00",
+          "grams": 310,
+          "compare_at_price": "149.00",
+          "position": 1,
+          "product_id": 7369944137808,
+          "created_at": "2025-11-05T07:14:57-08:00",
+          "updated_at": "2026-09-18T09:02:00-07:00"
+        },
+        {
+          "id": 41000000000002,
+          "title": "43 / Black",
+          "option1": "43",
+          "option2": "Black",
+          "option3": null,
+          "sku": "NB-TR2-43-BLK",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": null,
+          "available": false,
+          "price": "129.00",
+          "grams": 315,
+          "compare_at_price": null,
+          "position": 2,
+          "product_id": 7369944137808,
+          "created_at": "2025-11-05T07:14:57-08:00",
+          "updated_at": "2026-09-18T09:02:00-07:00"
+        }
+      ],
+      "images": [
+        {
+          "id": 99000000000001,
+          "created_at": "2025-11-05T07:14:57-08:00",
+          "position": 1,
+          "src": "https://cdn.example-shop.com/products/trail-runner-2-1.jpg",
+          "width": 1200,
+          "height": 1200,
+          "variant_ids": [],
+          "alt": null
+        }
+      ],
+      "options": [
+        { "name": "Size", "position": 1, "values": ["42", "43"] },
+        { "name": "Color", "position": 2, "values": ["Black"] }
+      ]
+    },
+    {
+      "id": 7369944137809,
+      "title": "Wool Sock (3-pack)",
+      "handle": "wool-sock-3-pack",
+      "body_html": "",
+      "published_at": "2026-02-01T10:00:00-08:00",
+      "created_at": "2026-01-30T10:00:00-08:00",
+      "updated_at": "2026-08-02T12:00:00-07:00",
+      "vendor": "Northbound",
+      "product_type": "Accessories",
+      "tags": ["socks"],
+      "variants": [
+        {
+          "id": 41000000000003,
+          "title": "Default Title",
+          "option1": "Default Title",
+          "option2": null,
+          "option3": null,
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": null,
+          "available": true,
+          "price": "24.00",
+          "grams": 120,
+          "compare_at_price": null,
+          "position": 1,
+          "product_id": 7369944137809,
+          "created_at": "2026-01-30T10:00:00-08:00",
+          "updated_at": "2026-08-02T12:00:00-07:00"
+        }
+      ],
+      "images": [],
+      "options": [{ "name": "Title", "position": 1, "values": ["Default Title"] }]
+    }
+  ]
+}

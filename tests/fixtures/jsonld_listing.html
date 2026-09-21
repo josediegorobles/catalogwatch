@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Shop - Generic Store</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Field Notebook A5",
+        "sku": "NB-A5-KRAFT",
+        "url": "https://generic.example-shop.com/field-notebook-a5",
+        "image": "https://generic.example-shop.com/img/notebook.jpg",
+        "brand": { "@type": "Brand", "name": "Paperbound" },
+        "offers": {
+          "@type": "Offer",
+          "price": "12.50",
+          "priceCurrency": "EUR",
+          "availability": "https://schema.org/InStock"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      [
+        {
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": "Brass Pencil",
+          "sku": "PEN-BRASS",
+          "url": "https://generic.example-shop.com/brass-pencil",
+          "offers": {
+            "@type": "AggregateOffer",
+            "lowPrice": "8.00",
+            "highPrice": "9.50",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/OutOfStock"
+          }
+        }
+      ]
+    </script>
+    <script type="application/ld+json">
+      { "@type": "BreadcrumbList", "itemListElement": [] }
+    </script>
+  </head>
+  <body></body>
+</html>
