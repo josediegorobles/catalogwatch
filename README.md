@@ -17,6 +17,8 @@ catalogwatch fetch --store https://competitor.com --out catalog.csv
 catalogwatch watch --store https://competitor.com --out changes.csv --telegram
 ```
 
+![CatalogWatch demo: fetch a live catalog, then watch it twice and get a Telegram dry-run](https://github.com/josediegorobles/catalogwatch/raw/main/docs/demo.gif)
+
 ---
 
 ## Install in 3 steps (no Docker)
