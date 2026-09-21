@@ -9,6 +9,9 @@ description = "Export any Shopify/WooCommerce catalog to CSV and report SKU-leve
 requires-python = ">=3.10"
 dependencies = ["httpx>=0.27"]
 
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+
 [project.scripts]
 catalogwatch = "catalogwatch.cli:main"
 
