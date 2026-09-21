@@ -111,6 +111,18 @@ renames of product titles and price-only edits.
 
 ---
 
+## Running it on a server (instead of your laptop)
+
+```bash
+# on a Debian/Ubuntu box with sudo
+scp scripts/deploy-hermes.sh stores.txt you@your-server:~/
+ssh you@your-server 'bash ~/deploy-hermes.sh ~/stores.txt'
+```
+
+That installs the tool, writes a `stores.txt`, creates a systemd timer that runs `fleet` every day at
+07:00 with `Persistent=true` (it catches up after downtime) and keeps 7 daily SQLite backups on the
+server. Nothing else to babysit.
+
 ## History database
 
 `fleet` writes every observed change to SQLite instead of keeping raw snapshots: a 250-product feed is
