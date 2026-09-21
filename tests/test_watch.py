@@ -19,7 +19,12 @@ def row(handle: str, sku: str, price: str, available: str = "true") -> dict:
 
 def test_detects_added_removed_price_and_stock_changes():
     previous = [row("a", "A1", "10.00"), row("b", "B1", "20.00"), row("c", "C1", "30.00", "true")]
-    current = [row("a", "A1", "9.50"), row("b", "B1", "20.00"), row("c", "C1", "30.00", "false"), row("d", "D1", "5.00")]
+    current = [
+        row("a", "A1", "9.50"),
+        row("b", "B1", "20.00"),
+        row("c", "C1", "30.00", "false"),
+        row("d", "D1", "5.00"),
+    ]
 
     changes = diff_rows(previous, current)
     by_type = {change["change_type"]: change for change in changes}
@@ -47,9 +52,7 @@ def test_change_order_is_deterministic():
     previous = [row("b", "B1", "20.00"), row("a", "A1", "10.00")]
     current = [row("c", "C1", "1.00"), row("b", "B1", "21.00")]
     changes = diff_rows(previous, current)
-    assert [(c["change_type"], c["key"]) for c in changes] == sorted(
-        [(c["change_type"], c["key"]) for c in changes]
-    )
+    assert [(c["change_type"], c["key"]) for c in changes] == sorted([(c["change_type"], c["key"]) for c in changes])
 
 
 def test_snapshot_roundtrip_and_path(tmp_path: Path):

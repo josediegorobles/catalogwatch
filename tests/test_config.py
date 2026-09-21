@@ -33,11 +33,7 @@ def test_env_overrides_defaults():
 def test_dotenv_file_is_parsed_and_os_env_wins(tmp_path: Path):
     env_file = tmp_path / ".env"
     env_file.write_text(
-        "# comment\n"
-        "CATALOGWATCH_PAGE_DELAY=1.25\n"
-        "\n"
-        "TELEGRAM_CHAT_ID=from-file\n"
-        "MALFORMED LINE\n",
+        "# comment\nCATALOGWATCH_PAGE_DELAY=1.25\n\nTELEGRAM_CHAT_ID=from-file\nMALFORMED LINE\n",
         encoding="utf-8",
     )
     parsed = load_dotenv(env_file)

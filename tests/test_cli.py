@@ -57,7 +57,10 @@ def test_watch_first_run_marks_everything_added(tmp_path: Path, shopify_page1, s
 def test_watch_second_run_reports_only_real_changes(tmp_path: Path, shopify_page1, shopify_page2):
     changes = tmp_path / "changes.csv"
     state = tmp_path / "state"
-    factory = lambda: shopify_fetcher({1: shopify_page1, 2: shopify_page2})
+
+    def factory():
+        return shopify_fetcher({1: shopify_page1, 2: shopify_page2})
+
     main(["watch", "--store", STORE, "--out", str(changes), "--state-dir", str(state)], fetcher_factory=factory)
     assert len(read_rows(changes)) == 3
 
@@ -70,7 +73,10 @@ def test_watch_second_run_reports_only_real_changes(tmp_path: Path, shopify_page
     variant = dict(cheaper[1]["products"][0]["variants"][0])
     variant["price"] = "99.00"
     cheaper[1]["products"][0]["variants"] = [variant]
-    main(["watch", "--store", STORE, "--out", str(changes), "--state-dir", str(state)], fetcher_factory=lambda: shopify_fetcher(cheaper))
+    main(
+        ["watch", "--store", STORE, "--out", str(changes), "--state-dir", str(state)],
+        fetcher_factory=lambda: shopify_fetcher(cheaper),
+    )
 
     rows = read_rows(changes)
     types = {row["change_type"] for row in rows}

@@ -44,8 +44,16 @@ class FakeClient:
         self._index = 0
         self.calls: list[dict[str, Any]] = []
 
-    def get(self, url: str, params: dict[str, Any] | None = None, headers: dict[str, str] | None = None, timeout: float | None = None) -> FakeResponse:
-        self.calls.append({"url": url, "params": dict(params or {}), "headers": dict(headers or {}), "timeout": timeout})
+    def get(
+        self,
+        url: str,
+        params: dict[str, Any] | None = None,
+        headers: dict[str, str] | None = None,
+        timeout: float | None = None,
+    ) -> FakeResponse:
+        self.calls.append(
+            {"url": url, "params": dict(params or {}), "headers": dict(headers or {}), "timeout": timeout}
+        )
         if callable(self._responses):
             return self._responses(url, params)
         if not self._responses:
